@@ -36,4 +36,4 @@ To run the Flask-powered blog application locally, follow these steps:
 
 For more detailed instructions, please refer to the [README](README.md) file in the repository.
 
------------------------     # Mr-Ndi :)
+# Mr-Ndi :)
