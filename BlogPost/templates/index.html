@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Hello world</h1>
+
+    <p>This is my first web flask app</p>
+    <p>Isn't this cool</p>
+    <p>my name is <b>{{_iryambere_}}</b></p>
+
+    <h3>Isombe curry</h3>
+    {% for curry in Isombe %}
+        {{curry}}</br>
+    {% endfor %}
+    <p>{{Isombe.5}}</p>
+{% endblock %}

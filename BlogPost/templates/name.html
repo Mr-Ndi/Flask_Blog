@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for msg in get_flashed_messages() %}
+
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        Hey {{names}} Your {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+    {% endfor %}
+    {% if names %}
+       <h1>Hello {{ names }} !! </h1>
+       <br>
+       <img src="{{ url_for('static', filename='images/mabano.jpg') }}" alt="Wait a little bit..." width=1100>
+       <br><br>
+       <p id="demo">This is some stuffs</p>
+       <script src="{{ url_for('static',filename='js/index.js') }}"></script>
+    {% else %}
+        <h1>What's your name ?</h1>
+        <br>
+        <form method="post">
+            {{ format.hidden_tag() }}
+            
+            {{ format.name.label(class='form-label') }}
+            {{ format.name(class='form-control') }}
+            <br>
+            {{ format.submit(class='btn btn-secondary') }}
+        </form>
+    {% endif %}
+
+{% endblock %}
