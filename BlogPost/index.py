@@ -8,8 +8,11 @@ from datetime import datetime
 # flask instance
 app = Flask(__name__)
 
-# adding databases
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# adding old sql_lite databases 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+
+# adding new mysql databases 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Ninshuti:byasana@localhost/Flasking'
 
 # initialising database
 db = SQLAlchemy(app)
