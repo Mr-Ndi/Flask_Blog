@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
     {% for msg in get_flashed_messages() %}
 
         <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -8,12 +7,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endfor %}
-
     {% if names %}
        <h1>User was added</h1>
-       <table class="table table -hover table-bordered table-striped">
+       <table class="table table-hover table-bordered table-striped">
         {% for our_user in all_user %}
-            <tr><td>{{ our_user.id }}  </td><td> {{ our_user.name }} </td><td>{{ our_user.email }} </td></tr>
+        <tr>
+            <td>{{ our_user.id }}</td>
+            <td> {{ our_user.name }} </td>
+            <td>{{ our_user.email }}</td>
+        </tr>
         {% endfor %}
     </table>
     <br>
@@ -34,9 +36,13 @@
             </form>
         </div>
         <h1>User list:</h1>
-        <table class="table table -hover table-bordered table-striped">
+        <table class="table table-hover table-bordered table-striped">
         {% for our_user in all_user %}
-            <tr><td>{{ our_user.id }}  </td><td> {{ our_user.name }} </td><td>{{ our_user.email }} </td></tr>
+        <tr>
+            <td>{{ our_user.id }}</td>
+            <td> <a href="{{url_for('update', id=our_user.id)}}"> {{ our_user.name }} </a></td>
+            <td>{{ our_user.email }}</td>
+        </tr>
         {% endfor %}
     </table>
     {% endif %}
