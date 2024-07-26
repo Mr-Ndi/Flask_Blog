@@ -15,6 +15,7 @@
             <td>{{ our_user.id }}</td>
             <td> {{ our_user.name }} </td>
             <td>{{ our_user.email }}</td>
+            <td>{{ our_user.favcolor }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -32,6 +33,9 @@
                 {{ mode.email.label(class='form-label') }}
                 {{ mode.email(class='form-control') }}
                 <br>
+                {{ mode.favcolor.label(class='form-label') }}
+                {{ mode.favcolor(class='form-control') }}
+                <br>
                 {{ mode.submit(class='btn btn-secondary') }}
             </form>
         </div>
@@ -41,7 +45,7 @@
         <tr>
             <td>{{ our_user.id }}</td>
             <td> <a href="{{url_for('update', id=our_user.id)}}"> {{ our_user.name }} </a></td>
-            <td>{{ our_user.email }}</td>
+            <td>{{ our_user.email }}</td><td>{{ our_user.favcolor }}</td>
         </tr>
         {% endfor %}
     </table>

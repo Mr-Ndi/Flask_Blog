@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from datetime import datetime
 
 # flask instance
@@ -16,12 +17,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Ninshuti:byasana@localh
 
 # initialising database
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # creating model
 class users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(25), nullable=False, unique=True)
+    favcolor = db.Column(db.String(25))
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
     # creating a string
@@ -39,6 +42,7 @@ app.config['SECRET_KEY'] = 'Sdcreat(9)'
 class UserForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
+    favcolor = StringField('Favorite color', validators=[DataRequired()])
     submit = SubmitField('Ohereza')
 
 # updsating a user
@@ -50,6 +54,7 @@ def update(id):
     if request.method == 'POST':
         name_to_update.name = request.form['name']
         name_to_update.email = request.form['email']
+        name_to_update.favcolor = request.form['favcolor']
         try:
             db.session.commit()
             flash('Hey that user was updated successfully')
@@ -88,17 +93,27 @@ def add_user():
     if form.validate_on_submit():
         user = users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = users(form.name.data, form.email.data)
+            user = users(form.name.data, form.email.data, form.favcolor)
             db.session.add(user)
             db.session.commit()
         name=form.name.data
         form.name.data = ''
         form.email.data = ''
+        form.favcolor = ''
         flash('was registered sucessfully')
     our_users = users.query.order_by(users.date_added)
     return render_template('add_user.html', mode = form, names = name, all_user = our_users)
 
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    user_to_delete = users.query.get_or_404(id)
+
+    try:
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        flash('User deleted sucessfully')
+    except:
 @app.route('/name', methods=['GET','POST'])
 def name():
     name = None
